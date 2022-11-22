@@ -1,7 +1,7 @@
 {
   "name": "@woli/design-system",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Woli Design System",
   "module": "dist/index.esm.min.js",
   "browser": "dist/index.umd.min.js",
