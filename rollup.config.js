@@ -3,9 +3,10 @@
  import resolve from '@rollup/plugin-node-resolve'
  import replace from '@rollup/plugin-replace'
  import cleanup from 'rollup-plugin-cleanup'
+ import dts from "rollup-plugin-dts"
  import pkg from './package.json' assert { type: "json" }
 
- export default {
+ export default [{
    input: 'dist/index.js',
    output: [
      {
@@ -41,4 +42,10 @@
      }),
      summary()
    ],
- };
+ },
+  {
+    input: "dist/index.d.ts",
+    output: [{ file: "dist/index.d.ts", format: "es" }],
+    plugins: [dts({respectExternal: true})],
+  }
+];

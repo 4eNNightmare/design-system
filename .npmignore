@@ -1,0 +1,6 @@
+.*
+src/
+*.json
+*.js
+*.tgz
+docs/
