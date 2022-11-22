@@ -2,13 +2,22 @@
  import { terser } from 'rollup-plugin-terser'
  import resolve from '@rollup/plugin-node-resolve'
  import replace from '@rollup/plugin-replace'
- 
+ import cleanup from 'rollup-plugin-cleanup'
+ import pkg from './package.json' assert { type: "json" }
+
  export default {
    input: 'dist/index.js',
-   output: {
-     file: 'dist/index.bundled.js',
-     format: 'esm'
-   },
+   output: [
+     {
+      name: pkg.name,
+      file: pkg.browser,
+      format: 'umd'
+    },
+    {
+      file: pkg.module,
+      format: 'esm'
+    }
+   ],
    onwarn(warning) {
      if (warning.code !== 'THIS_IS_UNDEFINED') {
        console.error(`(!) ${warning.message}`);
@@ -26,6 +35,9 @@
            regex: /^__/,
          },
        },
+     }),
+     cleanup({
+      comments: 'none'
      }),
      summary()
    ],
