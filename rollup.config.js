@@ -7,7 +7,8 @@
  import pkg from './package.json' assert { type: "json" }
 
  export default [{
-   input: 'dist/index.js',
+   input: '.tmp/index.js',
+   external: Object.keys(pkg.dependencies),
    output: [
      {
       name: pkg.name,
@@ -44,8 +45,8 @@
    ],
  },
   {
-    input: "dist/index.d.ts",
+    input: ".tmp/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "es" }],
-    plugins: [dts({respectExternal: true})],
+    plugins: [dts()],
   }
 ];

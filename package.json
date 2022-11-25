@@ -9,15 +9,16 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "prebuild": "rm -rf dist",
+    "prebuild": "rm -rf dist .tmp",
     "build": "tsc && rollup -c",
-    "postbuild": "rm -rf tmp && mkdir tmp && mv dist/index.esm.min.js dist/index.umd.min.js dist/index.d.ts tmp && rm -rf dist && mv tmp dist",
-    "watch": "concurrently \"tsc -w\" \"rollup -c -w\" \"wds --watch\"",
+    "watch-tsc": "tsc -w",
+    "watch-rollup": "rollup -c -w",
+    "watch-wds": "wds --watch",
     "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
-    "lint:eslint": "eslint 'src/**/*.ts'",
+    "lint:eslint": "eslint src/**/*.ts",
     "lint:lit-analyzer": "lit-analyzer",
     "format": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.eslintignore --write",
-    "start": "yarn build && yarn watch"
+    "start": "yarn build && concurrently yarn:watch-* -c auto"
   },
   "keywords": [
     "web-components",
@@ -27,6 +28,7 @@
   ],
   "author": "4eNNightmare",
   "dependencies": {
+    "colord": "^2.9.3",
     "lit": "^2.2.4"
   },
   "devDependencies": {

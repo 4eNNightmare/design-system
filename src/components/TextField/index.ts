@@ -2,6 +2,7 @@
  import {customElement, property} from 'lit/decorators.js'
  import {ifDefined} from 'lit/directives/if-defined.js'
  import { live } from 'lit/directives/live.js';
+import { DesignTokensController } from '../../design-tokens-controller';
  
  import styles from './styles'
 
@@ -9,11 +10,13 @@
 export class TextField extends LitElement {
   static override styles = styles
 
-  @property() disabled = false
-  @property() label: string | undefined
-  @property() placeholder: string | undefined
-  @property() value = ''
-  @property() type: 'text' | 'html' = 'text'
+  private tokens = new DesignTokensController(this, {primaryKey: 'blue', secondaryKey: 'red'})
+
+  @property({type: Boolean}) disabled = false
+  @property({type: String}) label: string | undefined
+  @property({type: String}) placeholder: string | undefined
+  @property({type: String}) value = ''
+  @property({type: String}) type: 'text' | 'wysiwyg' = 'text'
  
   private async _handleChange(event: InputEvent) {
     const target = event.currentTarget as HTMLInputElement
@@ -32,7 +35,7 @@ export class TextField extends LitElement {
 
   override render() {
     console.log(this.type)
-    if (this.type === 'html') {
+    if (this.type === 'wysiwyg') {
       return html`
         <div
           role="textbox"
