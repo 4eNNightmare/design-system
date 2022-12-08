@@ -1,6 +1,5 @@
 node_modules/*
 docs/*
 dist/*
-.tmp/*
-rollup-config.js
+rollup.config.js
 web-dev-server.config.js
